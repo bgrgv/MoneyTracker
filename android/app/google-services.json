@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "287216039473",
+    "firebase_url": "https://income-e10e1.firebaseio.com",
+    "project_id": "income-e10e1",
+    "storage_bucket": "income-e10e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:287216039473:android:f55b70ee461ea113",
+        "android_client_info": {
+          "package_name": "com.blessin.income"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "287216039473-u6qfs4t4au0av5hlcaocian7b87hqrb4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXUe8iZk4YJ6H1zugeXTfOtCz8cCiplno"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
