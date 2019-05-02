@@ -1,39 +1,37 @@
 {
   "project_info": {
-    "project_number": "287216039473",
-    "firebase_url": "https://income-e10e1.firebaseio.com",
-    "project_id": "income-e10e1",
-    "storage_bucket": "income-e10e1.appspot.com"
+    "project_number": "336760028960",
+    "firebase_url": "https://dsc-challenge-2019.firebaseio.com",
+    "project_id": "dsc-challenge-2019",
+    "storage_bucket": "dsc-challenge-2019.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:287216039473:android:f55b70ee461ea113",
+        "mobilesdk_app_id": "1:336760028960:android:f37f88ef02751d7b",
         "android_client_info": {
-          "package_name": "com.blessin.income"
+          "package_name": "com.srmdsc.dsc_challenge_2019"
         }
       },
       "oauth_client": [
         {
-          "client_id": "287216039473-u6qfs4t4au0av5hlcaocian7b87hqrb4.apps.googleusercontent.com",
+          "client_id": "336760028960-gkilv708s7lqc4a4h2a108nm76b0ef0v.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAXUe8iZk4YJ6H1zugeXTfOtCz8cCiplno"
+          "current_key": "AIzaSyBVMap3XYD59QOi6-X8enWzHPSxcOpN5ZM"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "336760028960-gkilv708s7lqc4a4h2a108nm76b0ef0v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
