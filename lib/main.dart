@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/style/theme.dart' as Theme;
 import 'package:flutter_app/ui/auth.dart';
 import 'package:flutter_app/ui/transact.dart';
+import 'package:flutter_app/ui/summary.dart';
 
 void main() => runApp(
   new MaterialApp(
