@@ -13,6 +13,10 @@ class Summary extends StatefulWidget {
 class _SummaryState extends State<Summary> {
   double sales_prev_day = 0;
   double sales_today = 0;
+  bool sync_state = true;
+
+  void _onSyncStateChange(bool value) => setState(() => sync_state = value);
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -99,8 +103,11 @@ class _SummaryState extends State<Summary> {
                     ),
                     recentTransactionsWidget(),
                     weeklySummary(),
-                    Row(
-                      children: <Widget>[syncStatus(), viewMore()],
+                    IntrinsicHeight(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[syncStatus(), viewMore()],
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(0),
@@ -126,7 +133,8 @@ class _SummaryState extends State<Summary> {
   }
 
   Widget recentTransactionsWidget() {
-    return Card(
+    return Expanded(
+      child: Card(
       elevation: 5,
       color: Colors.white,
       shape: RoundedRectangleBorder(
@@ -134,19 +142,81 @@ class _SummaryState extends State<Summary> {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        //crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("Recent Transactions", textAlign: TextAlign.left),
-          ListView(
-            shrinkWrap: true,
-            children: <Widget>[
-              ListTile(
-                title: Text("Timestamp - Amount - Payment Mode"),
-              )
-            ],
+          Text(
+            "Recent Transactions",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20.0,
+            ),
           ),
+          // ListView(
+          //   shrinkWrap: true,
+          //   children: <Widget>[
+          //     ListTile(
+          //       title: Text("Timestamp - Amount - Payment Mode"),
+          //     )
+          //   ],
+          // ),
+          Padding(
+            padding: EdgeInsets.all(5),
+            child: Table(
+              border: TableBorder(horizontalInside: BorderSide()),
+              columnWidths: {
+                1: FlexColumnWidth(0.5),
+                2: FlexColumnWidth(0.5),
+                3: FlexColumnWidth()
+              },
+              children: [
+                TableRow(children: [
+                  TableCell(
+                    child: Text(
+                      "Time",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  TableCell(
+                    child: Text(
+                      "Amount",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  TableCell(
+                    child: Text(
+                      "Payment Mode",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ]),
+                TableRow(children: [
+                  TableCell(
+                    child: Text("03 May 2019 6:03 PM"),
+                  ),
+                  TableCell(
+                    child: Text("120"),
+                  ),
+                  TableCell(
+                    child: Text("PayTM"),
+                  ),
+                ]),
+                TableRow(children: [
+                  TableCell(
+                    child: Text("03 May 2019 5:33 PM"),
+                  ),
+                  TableCell(
+                    child: Text("65"),
+                  ),
+                  TableCell(
+                    child: Text("G Pay"),
+                  ),
+                ]),
+              ],
+            ),
+          )
         ],
       ),
+    ),
     );
   }
 
@@ -157,20 +227,29 @@ class _SummaryState extends State<Summary> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
-        child: Row(
-          children: <Widget>[
-            SizedBox(
-              height: 150.0,
-              width: MediaQuery.of(context).size.width/2.05,
-              child: last7daysbarchart(),
+        child: Column(children: <Widget>[
+          Text(
+            "Weekly statistics",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20.0,
             ),
-            SizedBox(
-              height: 150.0,
-              width: MediaQuery.of(context).size.width/2.05,
-              child: last7dayspiechart(),
-            ),
-          ],
-        ));
+          ),
+          Row(
+            children: <Widget>[
+              SizedBox(
+                height: 150.0,
+                width: MediaQuery.of(context).size.width / 2.05,
+                child: last7daysbarchart(),
+              ),
+              SizedBox(
+                height: 150.0,
+                width: MediaQuery.of(context).size.width / 2.05,
+                child: last7dayspiechart(),
+              ),
+            ],
+          )
+        ]));
   }
 
   Widget last7daysbarchart() {
@@ -207,13 +286,18 @@ class _SummaryState extends State<Summary> {
     final List<charts.Series> seriesList = _getPieChartData();
     return new charts.PieChart(seriesList,
         animate: true,
-        defaultRenderer: new charts.ArcRendererConfig(
-            arcWidth: 30, startAngle: 4 / 5 * pi, arcLength: 7 / 5 * pi));
+        defaultRenderer: new charts.ArcRendererConfig(arcWidth: 20,
+            //startAngle: 4 / 5 * pi,
+            //arcLength: 7 / 5 * pi,
+            arcRendererDecorators: [
+              new charts.ArcLabelDecorator(
+                  labelPosition: charts.ArcLabelPosition.auto)
+            ]));
   }
 
   static List<charts.Series<GaugeSegment, String>> _getPieChartData() {
     final data = [
-      new GaugeSegment('Google Pay', 75),
+      new GaugeSegment('G Pay', 75),
       new GaugeSegment('PayTM', 100),
       new GaugeSegment('Cash', 50),
       new GaugeSegment('Others', 5),
@@ -222,9 +306,11 @@ class _SummaryState extends State<Summary> {
     return [
       new charts.Series<GaugeSegment, String>(
         id: 'Amount',
-        domainFn: (GaugeSegment segment, _) => segment.segment,
-        measureFn: (GaugeSegment segment, _) => segment.size,
+        domainFn: (GaugeSegment segment, _) => segment.payMode,
+        measureFn: (GaugeSegment segment, _) => segment.amount,
         data: data,
+        labelAccessorFn: (GaugeSegment segment, _) =>
+            '${segment.payMode}: ${segment.amount}',
       )
     ];
   }
@@ -233,45 +319,65 @@ class _SummaryState extends State<Summary> {
     return Expanded(
         flex: 2,
         child: Card(
-          elevation: 5,
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Text(
-            "Sync to cloud",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20.0,
+            elevation: 5,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
             ),
-          ),
-        ));
+            child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text(
+                        "Sync to cloud",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    ),
+                    Switch(
+                      value: sync_state,
+                      onChanged: _onSyncStateChange,
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.all(5),
+                  child: Text("Last Synced: 05 May 2019 5:56 PM"),
+                )
+              ],
+            )));
   }
 
   Widget viewMore() {
     return Expanded(
         flex: 1,
         child: Card(
-          elevation: 5,
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Text(
-            "More Info",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20.0,
+            elevation: 5,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
             ),
-          ),
-        ));
+            child: Center(
+              child: Text(
+                "More Info",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                ),
+              ),
+            )));
   }
 }
 
 class GaugeSegment {
-  final String segment;
-  final int size;
-  GaugeSegment(this.segment, this.size);
+  final String payMode;
+  final int amount;
+  GaugeSegment(this.payMode, this.amount);
 }
 
 class WeeklySales {
