@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/ui/summary.dart';
+<<<<<<< HEAD
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'tabs.dart';
@@ -19,7 +20,6 @@ class _TransactionState extends State<Transaction> {
   double n1 = 0.0;
   double n2 = 0.0;
   String op = "";
-
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -289,19 +289,14 @@ class _TransactionState extends State<Transaction> {
   }
 
   Widget makeButtonPay(String buttonText) {
+    String nameimg;
     //TODO: Use icon instead of text
     return new Expanded(
       child: new MaterialButton(
         padding: EdgeInsets.symmetric(
           vertical: 20.0,
         ),
-        child: new Text(
-          buttonText,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 30.0,
-          ),
-        ),
+        child: Image.asset('assets/img/'+buttonText+'.jpg')
         onPressed: () => saveTransaction(buttonText),
         color: Colors.white,
       ),
