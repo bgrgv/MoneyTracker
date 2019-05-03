@@ -4,6 +4,7 @@ import 'package:flutter_app/style/theme.dart' as Theme;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/ui/transact.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -596,6 +597,11 @@ class _AuthPageState extends State<Auth> with SingleTickerProviderStateMixin {
         _isSigningUp = false;
       });
     }
+  }
+
+  void saveUserData(String name, String userid) async {
+    final firestore.CollectionReference userRef = firestore.Firestore.instance.collection('/user');
+    userRef.document(userid).setData({"name":name});
   }
 
   bool isValidEmail(String _email) {

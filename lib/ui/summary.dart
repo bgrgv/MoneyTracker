@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/style/theme.dart' as Theme;
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter_app/ui/report.dart';
 import 'dart:math';
 
 class Summary extends StatefulWidget {
@@ -135,88 +136,88 @@ class _SummaryState extends State<Summary> {
   Widget recentTransactionsWidget() {
     return Expanded(
       child: Card(
-      elevation: 5,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        //crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            "Recent Transactions",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20.0,
+        elevation: 5,
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              "Recent Transactions",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20.0,
+              ),
             ),
-          ),
-          // ListView(
-          //   shrinkWrap: true,
-          //   children: <Widget>[
-          //     ListTile(
-          //       title: Text("Timestamp - Amount - Payment Mode"),
-          //     )
-          //   ],
-          // ),
-          Padding(
-            padding: EdgeInsets.all(5),
-            child: Table(
-              border: TableBorder(horizontalInside: BorderSide()),
-              columnWidths: {
-                1: FlexColumnWidth(0.5),
-                2: FlexColumnWidth(0.5),
-                3: FlexColumnWidth()
-              },
-              children: [
-                TableRow(children: [
-                  TableCell(
-                    child: Text(
-                      "Time",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+            // ListView(
+            //   shrinkWrap: true,
+            //   children: <Widget>[
+            //     ListTile(
+            //       title: Text("Timestamp - Amount - Payment Mode"),
+            //     )
+            //   ],
+            // ),
+            Padding(
+              padding: EdgeInsets.all(5),
+              child: Table(
+                border: TableBorder(horizontalInside: BorderSide()),
+                columnWidths: {
+                  1: FlexColumnWidth(0.5),
+                  2: FlexColumnWidth(0.5),
+                  3: FlexColumnWidth()
+                },
+                children: [
+                  TableRow(children: [
+                    TableCell(
+                      child: Text(
+                        "Time",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                  TableCell(
-                    child: Text(
-                      "Amount",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    TableCell(
+                      child: Text(
+                        "Amount",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                  TableCell(
-                    child: Text(
-                      "Payment Mode",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    TableCell(
+                      child: Text(
+                        "Payment Mode",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                ]),
-                TableRow(children: [
-                  TableCell(
-                    child: Text("03 May 2019 6:03 PM"),
-                  ),
-                  TableCell(
-                    child: Text("120"),
-                  ),
-                  TableCell(
-                    child: Text("PayTM"),
-                  ),
-                ]),
-                TableRow(children: [
-                  TableCell(
-                    child: Text("03 May 2019 5:33 PM"),
-                  ),
-                  TableCell(
-                    child: Text("65"),
-                  ),
-                  TableCell(
-                    child: Text("G Pay"),
-                  ),
-                ]),
-              ],
-            ),
-          )
-        ],
+                  ]),
+                  TableRow(children: [
+                    TableCell(
+                      child: Text("03 May 2019 6:03 PM"),
+                    ),
+                    TableCell(
+                      child: Text("120"),
+                    ),
+                    TableCell(
+                      child: Text("PayTM"),
+                    ),
+                  ]),
+                  TableRow(children: [
+                    TableCell(
+                      child: Text("03 May 2019 5:33 PM"),
+                    ),
+                    TableCell(
+                      child: Text("65"),
+                    ),
+                    TableCell(
+                      child: Text("G Pay"),
+                    ),
+                  ]),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
-    ),
     );
   }
 
@@ -363,12 +364,20 @@ class _SummaryState extends State<Summary> {
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: Center(
-              child: Text(
-                "More Info",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20.0,
+              child: FlatButton(
+                child: Text(
+                  "More Info",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20.0,
+                  ),
                 ),
+                onPressed: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Report()),
+                      )
+                    },
               ),
             )));
   }
