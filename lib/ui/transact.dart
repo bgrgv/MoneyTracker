@@ -1,6 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/ui/summary.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Transaction extends StatefulWidget {
   @override
@@ -226,6 +228,30 @@ class _TransactionState extends State<Transaction> {
     });
   }
 
+  saveTransaction(String payMode) async {
+    final amount = double.parse(amount_temp);
+    op="";
+    n1=0.0;
+    n2=0.0;
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    if(user!=null && amount!=0){
+      final firestore.CollectionReference transactRef = firestore.Firestore.instance.collection('user').document(user.uid).collection('transaction');
+      transactRef.add({"timestamp": firestore.FieldValue.serverTimestamp(), "amount":amount, "mode":payMode})
+      .then((result) => {
+        print("Saved transaction"),
+        print(result),
+        setState(() {
+          amount_temp = "0";
+          amount_str = "0";
+        })
+      })
+      .catchError((err) => print(err));
+    }
+    
+
+    
+  }
+
   Widget makeButtonNum(String buttonText) {
     return new Expanded(
       child: new MaterialButton(
@@ -275,7 +301,7 @@ class _TransactionState extends State<Transaction> {
             fontSize: 30.0,
           ),
         ),
-        onPressed: () => print(buttonText),
+        onPressed: () => saveTransaction(buttonText),
         color: Colors.white,
       ),
     );
