@@ -102,7 +102,7 @@ class _SummaryState extends State<Summary> {
                         )
                       ],
                     ),
-                    recentTransactionsWidget(),
+                    // recentTransactionsWidget(),
                     weeklySummary(),
                     IntrinsicHeight(
                       child: Row(
@@ -236,20 +236,23 @@ class _SummaryState extends State<Summary> {
               fontSize: 20.0,
             ),
           ),
-          Row(
+          new Column(
             children: <Widget>[
               SizedBox(
                 height: 150.0,
-                width: MediaQuery.of(context).size.width / 2.05,
+                width: MediaQuery.of(context).size.width / 1.2,
                 child: last7daysbarchart(),
+              ),
+              new Divider(
+                height: MediaQuery.of(context).size.height / 10,
               ),
               SizedBox(
                 height: 150.0,
-                width: MediaQuery.of(context).size.width / 2.05,
+                width: MediaQuery.of(context).size.width / 1.2,
                 child: last7dayspiechart(),
               ),
             ],
-          )
+          ),
         ]));
   }
 

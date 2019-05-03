@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/ui/summary.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'tabs.dart';
 
 class Transaction extends StatefulWidget {
   @override
@@ -137,7 +138,7 @@ class _TransactionState extends State<Transaction> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Summary()),
+                                          builder: (context) => Tabs()),
                                     );
                                   },
                                   child: Text(
