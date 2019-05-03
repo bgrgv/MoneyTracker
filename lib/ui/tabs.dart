@@ -8,9 +8,11 @@ class Tabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             bottom: TabBar(
               tabs: [
@@ -20,11 +22,17 @@ class Tabs extends StatelessWidget {
             ),
             title: Text('MoneyTracker'),
           ),
-          body: TabBarView(
-            children: [
-              Summary(),
-              Report(),
-            ],
+          body: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height < 420
+                ? 420
+                : MediaQuery.of(context).size.height,
+            child: new TabBarView(
+              children: [
+                Summary(),
+                Report(),
+              ],
+            ),
           ),
         ),
       ),

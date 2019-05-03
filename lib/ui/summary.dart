@@ -4,6 +4,8 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter_app/ui/report.dart';
 import 'dart:math';
 
+import 'package:flutter_app/ui/transact.dart';
+
 class Summary extends StatefulWidget {
   @override
   _SummaryState createState() {
@@ -24,119 +26,126 @@ class _SummaryState extends State<Summary> {
     return new Scaffold(
         resizeToAvoidBottomPadding: true,
         body: SingleChildScrollView(
-          child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height < 550
-                  ? 550
-                  : MediaQuery.of(context).size.height,
-              decoration: new BoxDecoration(
-                gradient: new LinearGradient(
-                    colors: [
-                      Theme.Colors.loginGradientStart,
-                      Theme.Colors.loginGradientEnd
-                    ],
-                    begin: const FractionalOffset(0.0, 0.0),
-                    end: const FractionalOffset(1.0, 1.0),
-                    stops: [0.0, 1.0],
-                    tileMode: TileMode.clamp),
-              ),
-              child: SafeArea(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Card(
-                            elevation: 5,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: new Column(
-                              children: <Widget>[
-                                Text(
-                                  "Yesterday's Sales",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20.0,
-                                  ),
-                                ),
-                                Text(
-                                  "₹" + sales_prev_day.toString(),
-                                  style: TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 30.0,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Card(
-                            elevation: 5,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: new Column(
-                              children: <Widget>[
-                                Text(
-                                  "Today's Sales",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20.0,
-                                  ),
-                                ),
-                                Text(
-                                  "₹" + sales_today.toString(),
-                                  style: TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 30.0,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        )
+          child: Center(
+            child: new Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height < 600
+                    ? 600
+                    : MediaQuery.of(context).size.height - 130,
+                decoration: new BoxDecoration(
+                  gradient: new LinearGradient(
+                      colors: [
+                        Theme.Colors.loginGradientStart,
+                        Theme.Colors.loginGradientEnd
                       ],
-                    ),
-                    // recentTransactionsWidget(),
-                    weeklySummary(),
-                    IntrinsicHeight(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[syncStatus(), viewMore()],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(0),
-                      child: MaterialButton(
-                          padding: EdgeInsets.only(top: 12, bottom: 12),
-                          minWidth: double.infinity,
-                          color: Colors.blue,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            "New Transaction",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20.0,
-                                fontFamily: "WorkSansBold"),
-                          )),
-                    )
-                  ],
+                      begin: const FractionalOffset(0.0, 0.0),
+                      end: const FractionalOffset(1.0, 1.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp),
                 ),
-              )),
+                child: SafeArea(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Card(
+                              elevation: 15,
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: new Column(
+                                children: <Widget>[
+                                  Text(
+                                    "Yesterday's Sales",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20.0,
+                                    ),
+                                  ),
+                                  Text(
+                                    "₹ " + sales_prev_day.toString(),
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 30.0,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Card(
+                              elevation: 15,
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: new Column(
+                                children: <Widget>[
+                                  Text(
+                                    "Today's Sales",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20.0,
+                                    ),
+                                  ),
+                                  Text(
+                                    "₹ " + sales_today.toString(),
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 30.0,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      new Divider(
+                        height: MediaQuery.of(context).size.height * 0.025,
+                      ),
+                      // recentTransactionsWidget(),
+                      weeklySummary(),
+                      new Divider(
+                        height: MediaQuery.of(context).size.height * 0.054,
+                      ),
+
+                      Padding(
+                        padding: EdgeInsets.all(0),
+                        child: MaterialButton(
+                            padding: EdgeInsets.only(top: 12, bottom: 12),
+                            minWidth: double.infinity,
+                            color: Colors.white,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Transaction()),
+                              );
+                            },
+                            child: Text(
+                              "New Transaction",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 20.0,
+                                  fontFamily: "WorkSansBold"),
+                            )),
+                      )
+                    ],
+                  ),
+                )),
+          ),
         ));
   }
 
   Widget recentTransactionsWidget() {
     return Expanded(
       child: Card(
-        elevation: 5,
+        elevation: 15,
         color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -223,7 +232,7 @@ class _SummaryState extends State<Summary> {
 
   Widget weeklySummary() {
     return Card(
-        elevation: 5,
+        elevation: 15,
         color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -239,15 +248,15 @@ class _SummaryState extends State<Summary> {
           new Column(
             children: <Widget>[
               SizedBox(
-                height: 150.0,
+                height: MediaQuery.of(context).size.height * 0.21,
                 width: MediaQuery.of(context).size.width / 1.2,
                 child: last7daysbarchart(),
               ),
               new Divider(
-                height: MediaQuery.of(context).size.height / 10,
+                height: MediaQuery.of(context).size.height / 7.75,
               ),
               SizedBox(
-                height: 150.0,
+                height: MediaQuery.of(context).size.height * 0.21,
                 width: MediaQuery.of(context).size.width / 1.2,
                 child: last7dayspiechart(),
               ),
@@ -321,47 +330,15 @@ class _SummaryState extends State<Summary> {
 
   Widget syncStatus() {
     return Expanded(
-        flex: 2,
-        child: Card(
-            elevation: 5,
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                        "Sync to cloud",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20.0,
-                        ),
-                      ),
-                    ),
-                    Switch(
-                      value: sync_state,
-                      onChanged: _onSyncStateChange,
-                    )
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Text("Last Synced: 05 May 2019 5:56 PM"),
-                )
-              ],
-            )));
+      flex: 1,
+    );
   }
 
   Widget viewMore() {
     return Expanded(
         flex: 1,
         child: Card(
-            elevation: 5,
+            elevation: 15,
             color: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
