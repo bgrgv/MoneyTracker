@@ -14,8 +14,8 @@ class Summary extends StatefulWidget {
 }
 
 class _SummaryState extends State<Summary> {
-  double sales_prev_day = 0;
-  double sales_today = 0;
+  double sales_prev_day = 5201;
+  double sales_today = 7220;
   bool sync_state = true;
 
   void _onSyncStateChange(bool value) => setState(() => sync_state = value);
@@ -29,9 +29,9 @@ class _SummaryState extends State<Summary> {
           child: Center(
             child: new Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height < 600
-                    ? 600
-                    : MediaQuery.of(context).size.height - 130,
+                height: MediaQuery.of(context).size.height < 400
+                    ? 400
+                    : MediaQuery.of(context).size.height - 90,
                 decoration: new BoxDecoration(
                   gradient: new LinearGradient(
                       colors: [
@@ -111,7 +111,7 @@ class _SummaryState extends State<Summary> {
                       // recentTransactionsWidget(),
                       weeklySummary(),
                       new Divider(
-                        height: MediaQuery.of(context).size.height * 0.054,
+                        height: MediaQuery.of(context).size.height * 0.033,
                       ),
 
                       Padding(
@@ -275,13 +275,13 @@ class _SummaryState extends State<Summary> {
 
   static List<charts.Series<WeeklySales, String>> _getBarPlotData() {
     final data = [
-      new WeeklySales('M', 5),
-      new WeeklySales('Tu', 25),
-      new WeeklySales('W', 100),
-      new WeeklySales('Th', 75),
-      new WeeklySales('F', 75),
-      new WeeklySales('Sa', 75),
-      new WeeklySales('Su', 75),
+      new WeeklySales('M', 5000),
+      new WeeklySales('Tu', 2500),
+      new WeeklySales('W', 1000),
+      new WeeklySales('Th', 7500),
+      new WeeklySales('F', 6500),
+      new WeeklySales('Sa', 7005),
+      new WeeklySales('Su', 7050),
     ];
 
     return [
@@ -310,10 +310,12 @@ class _SummaryState extends State<Summary> {
 
   static List<charts.Series<GaugeSegment, String>> _getPieChartData() {
     final data = [
-      new GaugeSegment('G Pay', 75),
-      new GaugeSegment('PayTM', 100),
-      new GaugeSegment('Cash', 50),
-      new GaugeSegment('Others', 5),
+      new GaugeSegment('G Pay', 7500),
+      new GaugeSegment('PayTM', 1000),
+      new GaugeSegment('Cash', 5000),
+      new GaugeSegment('Others', 500),
+      new GaugeSegment('PhonePe', 1500),
+      new GaugeSegment('Card', 500),
     ];
 
     return [
