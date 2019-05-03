@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/ui/summary.dart';
 
 class Transaction extends StatefulWidget {
   @override
@@ -130,7 +131,13 @@ class _TransactionState extends State<Transaction> {
                                   padding: EdgeInsets.only(top: 12, bottom: 12),
                                   minWidth: double.infinity,
                                   color: Colors.blue,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Summary()),
+                                    );
+                                  },
                                   child: Text(
                                     "View Summary",
                                     style: TextStyle(
