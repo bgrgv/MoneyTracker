@@ -27,9 +27,9 @@ class _ReportState extends State<Report> {
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height < 550
-              ? 550
-              : MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height < 600
+              ? 600
+              : MediaQuery.of(context).size.height - 130,
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
                 colors: [
@@ -83,24 +83,7 @@ class _ReportState extends State<Report> {
                       )),
                 ),
                 transactionsWidget(),
-                piechart(),
-                 Padding(
-                      padding: EdgeInsets.all(0),
-                      child: MaterialButton(
-                          padding: EdgeInsets.only(top: 12, bottom: 12),
-                          minWidth: double.infinity,
-                          color: Colors.blue,
-                          onPressed: () {
-                      
-                          },
-                          child: Text(
-                            "Generate PDF report",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20.0,
-                                fontFamily: "WorkSansBold"),
-                          )),
-                    )
+                // piechart(),
               ],
             ),
           ),
@@ -110,88 +93,95 @@ class _ReportState extends State<Report> {
   }
 
   Widget transactionsWidget() {
-    return Expanded(
-      child: Card(
-        elevation: 5,
-        color: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              "Transactions",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20.0,
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 12.0,
+        right: 12.0,
+      ),
+      child: new Container(
+        height: MediaQuery.of(context).size.height / 1.63,
+        child: Card(
+          elevation: 5,
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            //crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                "Transactions",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                ),
               ),
-            ),
-            // ListView(
-            //   shrinkWrap: true,
-            //   children: <Widget>[
-            //     ListTile(
-            //       title: Text("Timestamp - Amount - Payment Mode"),
-            //     )
-            //   ],
-            // ),
-            Padding(
-              padding: EdgeInsets.all(5),
-              child: Table(
-                border: TableBorder(horizontalInside: BorderSide()),
-                columnWidths: {
-                  1: FlexColumnWidth(0.5),
-                  2: FlexColumnWidth(0.5),
-                  3: FlexColumnWidth()
-                },
-                children: [
-                  TableRow(children: [
-                    TableCell(
-                      child: Text(
-                        "Time",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+              // ListView(
+              //   shrinkWrap: true,
+              //   children: <Widget>[
+              //     ListTile(
+              //       title: Text("Timestamp - Amount - Payment Mode"),
+              //     )
+              //   ],
+              // ),
+              Padding(
+                padding: EdgeInsets.all(5),
+                child: Table(
+                  border: TableBorder(horizontalInside: BorderSide()),
+                  columnWidths: {
+                    1: FlexColumnWidth(0.5),
+                    2: FlexColumnWidth(0.5),
+                    3: FlexColumnWidth()
+                  },
+                  children: [
+                    TableRow(children: [
+                      TableCell(
+                        child: Text(
+                          "Time",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                    TableCell(
-                      child: Text(
-                        "Amount",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      TableCell(
+                        child: Text(
+                          "Amount",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                    TableCell(
-                      child: Text(
-                        "Payment Mode",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      TableCell(
+                        child: Text(
+                          "Payment Mode",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                  ]),
-                  TableRow(children: [
-                    TableCell(
-                      child: Text("03 May 2019 6:03 PM"),
-                    ),
-                    TableCell(
-                      child: Text("120"),
-                    ),
-                    TableCell(
-                      child: Text("PayTM"),
-                    ),
-                  ]),
-                  TableRow(children: [
-                    TableCell(
-                      child: Text("03 May 2019 5:33 PM"),
-                    ),
-                    TableCell(
-                      child: Text("65"),
-                    ),
-                    TableCell(
-                      child: Text("G Pay"),
-                    ),
-                  ]),
-                ],
-              ),
-            )
-          ],
+                    ]),
+                    TableRow(children: [
+                      TableCell(
+                        child: Text("03 May 2019 6:03 PM"),
+                      ),
+                      TableCell(
+                        child: Text("120"),
+                      ),
+                      TableCell(
+                        child: Text("PayTM"),
+                      ),
+                    ]),
+                    TableRow(children: [
+                      TableCell(
+                        child: Text("03 May 2019 5:33 PM"),
+                      ),
+                      TableCell(
+                        child: Text("65"),
+                      ),
+                      TableCell(
+                        child: Text("G Pay"),
+                      ),
+                    ]),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -219,6 +209,7 @@ class _ReportState extends State<Report> {
           ),
         ]));
   }
+
   Widget last7dayspiechart() {
     final List<charts.Series> seriesList = _getPieChartData();
     return new charts.PieChart(seriesList,
@@ -251,8 +242,8 @@ class _ReportState extends State<Report> {
       )
     ];
   }
-
 }
+
 class GaugeSegment {
   final String payMode;
   final int amount;
