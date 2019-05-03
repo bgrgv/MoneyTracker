@@ -457,7 +457,8 @@ class _AuthPageState extends State<Auth> with SingleTickerProviderStateMixin {
                     ),
                     onPressed: () => _signUpWithEmailAndPassword(
                         signupEmailController.text,
-                        signupPasswordController.text)),
+                        signupPasswordController.text,
+                        signupNameController.text)),
               ),
             ],
           ),
@@ -560,7 +561,7 @@ class _AuthPageState extends State<Auth> with SingleTickerProviderStateMixin {
     }
   }
 
-  void _signUpWithEmailAndPassword(String _email, String _pwd) async {
+  void _signUpWithEmailAndPassword(String _email, String _pwd, String name) async {
     setState(() {
       _isSigningUp = true;
     });
@@ -572,6 +573,7 @@ class _AuthPageState extends State<Auth> with SingleTickerProviderStateMixin {
         );
         if (user != null) {
           await user.sendEmailVerification();
+          saveUserData(name, user.uid);
           print("Sent email verification to $user.email");
           setState(() {
             // _success = true;
@@ -599,7 +601,7 @@ class _AuthPageState extends State<Auth> with SingleTickerProviderStateMixin {
     }
   }
 
-  void saveUserData(String name, String userid) async {
+  void saveUserData(String name, String userid) {
     final firestore.CollectionReference userRef = firestore.Firestore.instance.collection('/user');
     userRef.document(userid).setData({"name":name});
   }
